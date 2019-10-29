@@ -1,17 +1,21 @@
 #pragma once
-#include<iostream>
-#include<math.h>
-#include<algorithm>
-#include<string.h>
-template<class T> class vec
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <string.h>
+
+namespace my
+{
+template <class T>
+class vec
 {
 public:
-	vec<T>() : head(new T),_size(0),max_size(1){}
-	vec<T>(const std::initializer_list<T> & v)
+	vec<T>() : head(new T), _size(0), max_size(1) {}
+	vec<T>(const std::initializer_list<T> &v) : vec<T>()
 	{
 		*this = v;
 	}
-	vec<T>(const vec<T> &v)
+	vec<T>(const vec<T> &v) : vec<T>()
 	{
 		*this = v;
 	}
@@ -27,8 +31,8 @@ public:
 	{
 		if (_size == max_size)
 		{
-			T * temp = new T[max_size << 1];
-			memcpy(temp, head, sizeof(T)*max_size);
+			T *temp = new T[max_size << 1];
+			memcpy(temp, head, sizeof(T) * max_size);
 			delete[] head;
 			head = temp;
 			max_size <<= 1;
@@ -44,12 +48,12 @@ public:
 			else
 				_size--;
 		}
-		catch (const char * str)
+		catch (const char *str)
 		{
 			std::cerr << str << std::endl;
 		}
 	}
-	void insert(const int& pos, const T &v)
+	void insert(const int &pos, const T &v)
 	{
 		// 0 1 2 3 4 5 4
 		push_back(v);
@@ -57,7 +61,7 @@ public:
 			head[i] = head[i - 1];
 		head[pos] = v;
 	}
-	void erase(const int& pos)
+	void erase(const int &pos)
 	{
 		for (int i = pos; i < _size; i++)
 			head[i] = head[i + 1];
@@ -70,11 +74,11 @@ public:
 		_size = 0;
 		head = new T;
 	}
-	T back()const
+	T back() const
 	{
 		return head[_size - 1];
 	}
-	T &operator[] (const int &a) const
+	T &operator[](const int &a) const
 	{
 		static T err;
 		try
@@ -82,39 +86,39 @@ public:
 			if (std::abs(a) >= _size)
 				throw "Error: \nout of the index !\nthe operation is invalid\n";
 		}
-		catch (const char * str)
+		catch (const char *str)
 		{
 			std::cerr << str << std::endl;
 			return err;
 		}
 		return a >= 0 ? head[a] : head[_size - a];
 	}
-	T * begin()const
+	T *begin() const
 	{
 		return head;
 	}
-	T * end()const
+	T *end() const
 	{
 		return head + _size;
 	}
-	vec<T> & operator = (const vec<T> &a)
+	vec<T> &operator=(const vec<T> &a)
 	{
 		clear();
 		max_size = a.capacity();
 		_size = a.size();
 		delete[] head;
 		head = new T[max_size];
-		memcpy(head, a.begin(), sizeof(T)*max_size);
+		memcpy(head, a.begin(), sizeof(T) * max_size);
 		return *this;
 	}
-	vec<T> & operator = (const std::initializer_list<T> &v)
+	vec<T> &operator=(const std::initializer_list<T> &v)
 	{
 		clear();
 		for (auto c : v)
 			push_back(c);
 		return *this;
 	}
-	bool operator == (const vec<T> &a)
+	bool operator==(const vec<T> &a)
 	{
 		if (size() != a.size())
 			return 0;
@@ -123,7 +127,7 @@ public:
 				return 0;
 		return 1;
 	}
-	bool operator != (const vec<T> &a)
+	bool operator!=(const vec<T> &a)
 	{
 		return !operator==(a);
 	}
@@ -131,9 +135,11 @@ public:
 	{
 		delete[] head;
 	}
-	virtual std::istream& ipt(std::istream & in) = 0;
-	virtual std::ostream& opt(std::ostream &out) const = 0;
+	virtual std::istream &ipt(std::istream &in) = 0;
+	virtual std::ostream &opt(std::ostream &out) const = 0;
+
 protected:
-	T * head;
+	T *head;
 	int _size = 0, max_size = 1;
 };
+} // namespace my

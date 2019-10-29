@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace llx
+namespace my
 {
 template <class T>
 class Node
@@ -69,9 +69,15 @@ class list
 public:
 	list()
 	{
+		//cout << "!"<<endl;
 		head = new Node<T>();
 		head->next = head;
 		head->pre = head;
+	}
+	list(const std::initializer_list<T> &v) : list()
+	{
+		for (auto c : v)
+			push_back(c);
 	}
 	~list()
 	{
@@ -149,17 +155,32 @@ public:
 				return i;
 		return end();
 	}
-	it modify(it pos, const T &v)
+	it emplace(it pos, const T &v)
 	{
 		pos.node->data = v;
 		return pos;
 	}
-	it modify(const T &a, const T &b)
+	it emplace(const T &a, const T &b)
 	{
-		return modify(find(a), b);
+		it pos = find(a);
+		if (pos != end())
+			return emplace(pos, b);
+	}
+	size_t size()
+	{
+		size_t cnt = 0;
+		for (auto c : *this)
+			cnt++;
+		return cnt;
+	}
+	void show_list()
+	{
+		for (auto c : *this)
+			std::cout << c;
+		std::cout << "\n-------------------------------------\n";
 	}
 
 private:
 	Node<T> *head;
 };
-} // namespace llx
+} // namespace my
