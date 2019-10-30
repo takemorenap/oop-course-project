@@ -173,6 +173,10 @@ public:
 			cnt++;
 		return cnt;
 	}
+	bool empty()
+	{
+		return size() == 0;
+	}
 	void show_list()
 	{
 		for (auto c : *this)
