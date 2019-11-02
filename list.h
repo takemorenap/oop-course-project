@@ -81,13 +81,9 @@ public:
 	}
 	~list()
 	{
-		auto pre = begin(), now = pre;
-		while (now != end())
-		{
-			now++;
-			erase(pre);
-			pre = now;
-		}
+		auto it = begin();
+		while(it!=end())
+			it=erase(it);
 	}
 	list<T> &operator=(const list<T> &v)
 	{
@@ -97,13 +93,9 @@ public:
 	}
 	void clear()
 	{
-		auto pre = begin(), now = pre;
-		while (now != end())
-		{
-			now++;
-			erase(pre);
-			pre = now;
-		}
+		auto it = begin();
+		while(it!=end())
+			it=erase(it);
 	}
 	it begin()
 	{
