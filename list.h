@@ -69,7 +69,6 @@ class list
 public:
 	list()
 	{
-		//cout << "!"<<endl;
 		head = new Node<T>();
 		head->next = head;
 		head->pre = head;
@@ -82,8 +81,8 @@ public:
 	~list()
 	{
 		auto it = begin();
-		while(it!=end())
-			it=erase(it);
+		while (it != end())
+			it = erase(it);
 	}
 	list<T> &operator=(const list<T> &v)
 	{
@@ -94,8 +93,8 @@ public:
 	void clear()
 	{
 		auto it = begin();
-		while(it!=end())
-			it=erase(it);
+		while (it != end())
+			it = erase(it);
 	}
 	it begin()
 	{
